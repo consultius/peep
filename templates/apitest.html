@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello, Updated World!</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>                 <!-- Include this for api access to elevenlabs below -->
+</head>
+<body>
+    <!-- code below here to display the jinja2 variable called 'message'   -->
+
+    <h1 style="white-space: pre-line">Header here. DOES THSI UPDATE Message is</h1>
+    <div id="slideshow"></div>
+
+<div id="the_words"></div>
+
+
+
+<script>
+
+            var apiKey = "HERE";
+            var voiceId = "B8nHSeMaRy9alGTt58OW";
+            var text = $("#the_words").text();
+     
+
+
+
+
+
+
+
+    $(document).ready(function() {
+        $.ajax({
+            url: "https://api.elevenlabs.io/v1/voices",
+            headers: {
+                'xi-api-key': apiKey
+            },
+            success: function(response) {
+                $('#the_words').text("I got something");
+                $('#the_words').append(JSON.stringify(response.voices));
+                // Display the response data in the div with id 'the_words'
+                // $('#the_words').text("SUCCESS HAPPENED HERE IT COMES:")
+                // $('#the_words').append(JSON.stringify(response.voices));
+                // console.log("API read Success:", response.voices);
+            },
+            error: function(xhr, status, errorThrown) {
+                // There was an error with the API call
+                $('#the_words').append("error")
+                $('#the_words').append("status", status)
+                $('#the_words').append(errorThrown.message)
+                console.log("API read Error:", errorThrown);
+                console.log("status:", status);
+            }
+        });
+    });
+    </script>
+
+
+
+    
+    
+    
+    
+    
+    
+
+</body>
+</html>
