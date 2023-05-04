@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello, World!</title>
+</head>
+<body>
+    <!-- code below here to display the jinja2 variable called 'message'   -->
+
+    <h1 style="white-space: pre-line">message is {{ message }}</h1>
+    <div id="slideshow"></div>
+    <script>
+        const message2 = {{ message|tojson }};
+    
+        let index = 0;
+        setInterval(() => {
+            document.getElementById("slideshow").innerHTML = message2[index];
+            index = (index + 1) % message2.length;
+        }, 2000);
+    </script>
+</body>
+</html>

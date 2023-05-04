@@ -15,10 +15,39 @@
     .image-container img {
       margin-right: 10px; /* Adjust the space between images */
     }
+    #slideshow {
+      overflow: hidden;
+      position: relative;
+      z-index: 1000;
+      height: 1em;
+      /* other styles... */
+    }
+    #slideshow div {
+      animation-name: slidein;
+      animation-fill-mode: forwards;
+      position: relative;
+      opacity: 0;
+      display: none;
+      width: 100%;
+    }
+    #slideshow div:first-child {
+      display: block;
+    }
+    @keyframes slidein {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
   </style>
 
 
 </head>
+
 
 <body>
   <img src="{{ url_for('static', filename='mark.png') }}" class="icon" />
@@ -27,13 +56,28 @@
     <input type="text" name="form1" placeholder="What happens" required />
     <input type="submit" value="Generate" />
   </form>
-  {% if text_result %}
   <div class="result">{{ text_result }}</div>
+  <div id="slideshow"></div>
+  {% if text_result %}
+    SOme lower tex still in the body<br>
+    more text in the body<br>
+
+
+
+  <script>
+      const message2 = {{ text_result|tojson }};
+  
+      let index = 0;
+      setInterval(() => {
+          document.getElementById("slideshow").innerHTML = message2[index];
+          index = (index + 1) % message2.length;
+      }, 1000);
+  </script>
 
   <div style="display: flex;">
 
-    <img src="{{ image_mask_mark_result }}" alt="Image 3" style="margin-right: 10px;">
-    <img src="{{ image_mask_jeremy_result }}" alt="Image 4">
+    <!-- <img src="{{ image_mask_mark_result }}" alt="Image 3" style="margin-right: 10px;">
+    <img src="{{ image_mask_jeremy_result }}" alt="Image 4"> -->
   </div>
 
 

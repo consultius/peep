@@ -18,7 +18,7 @@ def index():
         text_response = openai.Completion.create(       # get text
             model="text-davinci-003",
             prompt=generate_text_prompt(entry),
-            max_tokens=2048,
+            max_tokens=80,
             temperature=0.6,
         )
         print("IN IF " + text_response.choices[0].text)
@@ -37,35 +37,35 @@ def index():
         # print("GENERATED IMAGE VARIATION URL IS " +
         #       image_variation_response['data'][0]['url'])
         # code like the bits above which uses the openai.image.create_edit() function to edit the image
-        image_mask_jeremy_response = openai.Image.create_edit(         # get image
-            image=open("jeremy_sofa.png", "rb"),
-            mask=open("jeremy_sofa_mask.png", "rb"),
-            prompt=generate_image_mask_prompt(entry),
-            n=1,
-            size="512x512"
-        )
-        print("GENERATED JEREMY EDIT URL IS " +
-               image_mask_jeremy_response['data'][0]['url']
-               )
+        # image_mask_jeremy_response = openai.Image.create_edit(         # get image
+        #     image=open("jeremy_sofa.png", "rb"),
+        #     mask=open("jeremy_sofa_mask.png", "rb"),
+        #     prompt=generate_image_mask_prompt(entry),
+        #     n=1,
+        #     size="256x256"
+        # )
+        # print("GENERATED JEREMY EDIT URL IS " +
+        #        image_mask_jeremy_response['data'][0]['url']
+        #        )
         
-        image_mask_mark_response = openai.Image.create_edit(         # get image
-            image=open("mark_holding.png", "rb"),
-            mask=open("mark_holding_mask.png", "rb"),
-            prompt=generate_image_mask_prompt(entry),
-            n=1,
-            size="512x512"
-        )
-        print("GENERATED MARK EDIT URL IS " +
-               image_mask_mark_response['data'][0]['url']
-               )
+        # image_mask_mark_response = openai.Image.create_edit(         # get image
+        #     image=open("mark_holding.png", "rb"),
+        #     mask=open("mark_holding_mask.png", "rb"),
+        #     prompt=generate_image_mask_prompt(entry),
+        #     n=1,
+        #     size="256x256"
+        # )
+        # print("GENERATED MARK EDIT URL IS " +
+        #        image_mask_mark_response['data'][0]['url']
+        #        )
 
 
         return redirect(url_for("index",
-                                text_result=text_response.choices[0].text,
+                                text_result=text_response.choices[0].text,  #.split('\n')  ,
                                 #image_result=image_response['data'][0]['url'],
                                 #image_variation_result=image_variation_response['data'][0]['url'],
-                                image_mask_jeremy_result=image_mask_jeremy_response['data'][0]['url'],
-                                image_mask_mark_result=image_mask_mark_response['data'][0]['url']                                
+                                #image_mask_jeremy_result=image_mask_jeremy_response['data'][0]['url'],
+                                #image_mask_mark_result=image_mask_mark_response['data'][0]['url']                                
                                 )
                         )
 
